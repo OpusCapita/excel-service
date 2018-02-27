@@ -1,0 +1,17 @@
+.oc-file-input {
+  cursor: pointer;
+  filter: alpha(opacity=0); /* IE < 9 */
+  height: 0;
+  left: 0;
+  opacity: 0;
+  outline: none;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  width: 0;
+}
+.oc-file-input-label {
+  cursor: pointer;
+  margin-bottom: 0px;
+  width: 100%;
+}
