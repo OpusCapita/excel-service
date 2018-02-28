@@ -1,8 +1,8 @@
 import React from 'react';
-import { List, Map } from 'immutable';
+import { fromJS } from 'immutable';
 import { Button, ControlLabel, Grid, Row, Col } from 'react-bootstrap';
 
-import FileInputLabel, { exportToExcel, importFromExcel, onLoadCallback } from '../../src/index';
+import { FileInputLabel, exportToExcel, importFromExcel, onLoadCallback } from '../../src/index';
 
 export default class ExampleView extends React.PureComponent {
   constructor(props) {
@@ -28,7 +28,7 @@ export default class ExampleView extends React.PureComponent {
       {
         header: 'Float',
         valueKeyPath: ['float'],
-        valueType: 'number',
+        valueType: 'string',
         width: 200,
       },
     ];
@@ -36,20 +36,20 @@ export default class ExampleView extends React.PureComponent {
   }
 
   initializeData = () => {
-    const data = List();
-    for (let i = 0; i < 20; i += 1) {
-      data.push(Map({ string: `Item ${i}`, number: i, float: `${i}.00` }));
+    const data = [];
+    for (let i = 0; i < 10; i += 1) {
+      data.push({ string: `Item ${i}`, number: i, float: `${i}.00` });
     }
     return data;
   }
 
   readExcelData = (e) => {
-    const excelData = onLoadCallback(e, this.columns);
-    this.setState({ data: excelData });
+    const data = onLoadCallback(e, this.columns);
+    this.setState({ data });
   }
 
   handleExportToExcelClick = () => {
-    exportToExcel(this.state.data, this.columns, 'ExampleExport');
+    exportToExcel(fromJS(this.state.data), this.columns, 'ExampleExport');
   }
 
   handleImportFromExcelClick = (e) => {
@@ -58,31 +58,29 @@ export default class ExampleView extends React.PureComponent {
 
   render() {
     return (
-      <Grid>
+      <Grid fluid>
         <Row>
-          {this.columns.map((column) => {
-            return (
-              <Col xs={4} key={column.header}>
+          {this.columns.map(column => (
+            <Col xs={4} key={column.header}>
+              <ControlLabel>
                 {column.header}
-              </Col>
-            );
-          })}
+              </ControlLabel>
+            </Col>
+          ))}
         </Row>
-        {this.state.data.map((row) => {
-          return (
-            <Row key={row.get('number')}>
-              <Col xs={4}>
-                {row.get('string')}
-              </Col>
-              <Col xs={4}>
-                {row.get('number')}
-              </Col>
-              <Col xs={4}>
-                {row.get('float')}
-              </Col>
-            </Row>
-          );
-        })}
+        {this.state.data.map(row => (
+          <Row key={row.number}>
+            <Col xs={4}>
+              {row.string}
+            </Col>
+            <Col xs={4}>
+              {row.number}
+            </Col>
+            <Col xs={4}>
+              {row.float}
+            </Col>
+          </Row>
+        ))}
         <Row>
           <Col xs={12}>
             <Button
@@ -93,6 +91,10 @@ export default class ExampleView extends React.PureComponent {
                 Export to Excel
               </ControlLabel>
             </Button>
+          </Col>
+        </Row>
+        <Row>
+          <Col xs={12}>
             <Button
               id="importButton"
             >

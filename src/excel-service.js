@@ -86,6 +86,7 @@ export const exportToExcel = (data, columns, fileName = 'Export From OC', digits
   const book = { SheetNames: [sheetName], Sheets: {} };
   book.Sheets[sheetName] = sheet;
   const bookOut = XLSX.write(book, { bookType: 'xlsx', bookSST: true, type: 'binary' });
+  console.log(book, bookOut, convertStringToArrayBuffer(bookOut));
   saveAs(new Blob([convertStringToArrayBuffer(bookOut)], { type: 'application/octet-stream' }), `${fileName}.xlsx`);
 };
 
