@@ -16,19 +16,16 @@ export default class ExampleView extends React.PureComponent {
       {
         header: 'String',
         valueKeyPath: ['string'],
-        valueType: 'string',
         width: 200,
       },
       {
         header: 'Number',
         valueKeyPath: ['number'],
-        valueType: 'number',
         width: 200,
       },
       {
         header: 'Float',
         valueKeyPath: ['float'],
-        valueType: 'string',
         width: 200,
       },
     ];

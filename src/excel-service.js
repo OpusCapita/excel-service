@@ -65,14 +65,14 @@ const createWorksheet = (data, columns, digits) => {
  * data is a List of data to export,
  * columns is an array of column objects with the keys:
  * {
- *  disableValueRenderInExcel :: bool, optional, disable valueRender callback for export to Excel,
- *    instead export value directly
- *  headerText :: string, needed if 'header' is not a text,
- *  valueKeyPath :: array of strings,
- *  valueRender :: function, optional,
- *  valueType :: string, defines a value type in UI
- *  valueTypeExcel :: string, optional, defines a value type for Excel if differs from UI
+ *  header :: string or element, defines the column name,
+ *  valueKeyPath :: array of strings, defines the column id,
  *  width :: number, width in pixels,
+ *  disableValueRenderInExcel :: bool (optional), disable valueRender callback for export to Excel,
+ *    instead export value directly
+ *  headerText :: string (optional), needed if 'header' is not a text,
+ *  valueRender :: function (optional), defines a render function,
+ *  valueTypeExcel :: string (optional), defines a value type for Excel if differs from UI
  * },
  * fileName is a file name string (optional),
  * digits is a number of digits for decimals in all table or an array containing digits
@@ -86,7 +86,7 @@ export const exportToExcel = (data, columns, fileName = 'Export From OC', digits
   const book = { SheetNames: [sheetName], Sheets: {} };
   book.Sheets[sheetName] = sheet;
   const bookOut = XLSX.write(book, { bookType: 'xlsx', bookSST: true, type: 'binary' });
-  console.log(book, bookOut, convertStringToArrayBuffer(bookOut));
+  // console.log(book, bookOut, convertStringToArrayBuffer(bookOut));
   saveAs(new Blob([convertStringToArrayBuffer(bookOut)], { type: 'application/octet-stream' }), `${fileName}.xlsx`);
 };
 

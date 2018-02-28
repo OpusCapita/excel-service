@@ -3,11 +3,11 @@ import React from 'react';
 import { expect } from 'chai';
 import { mount } from 'enzyme';
 
-import Example from '../../src/index';
+import { FileInputLabel } from '../../src/index';
 
-describe('Example component', () => {
+describe('FileInputLabel component', () => {
   it('is rendered', () => {
-    const wrapper = mount(<Example />);
+    const wrapper = mount(<FileInputLabel />);
     expect(wrapper).to.exist;
   });
 });
