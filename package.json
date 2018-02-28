@@ -1,7 +1,7 @@
 {
   "author": "OpusCapita (www.opuscapita.com)",
   "name": "@opuscapita/excel-service",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "private": false,
   "license": "MIT",
   "description": "OpusCapita JS Excel Service",
@@ -64,6 +64,7 @@
     "eslint-plugin-jsx-a11y": "6.0.3",
     "eslint-plugin-react": "7.7.0",
     "file-loader": "1.1.8",
+    "file-saver": "1.3.3",
     "global-jsdom": "4.2.0",
     "html-webpack-plugin": "2.30.1",
     "ignore-styles": "5.0.1",
@@ -95,11 +96,10 @@
     "webpack-merge": "4.1.1",
     "webpack-node-externals": "1.6.0",
     "webpack-notifier": "1.5.1",
-    "write-file-webpack-plugin": "4.2.0"
+    "write-file-webpack-plugin": "4.2.0",
+    "xlsx": "0.12.2"  
   },
   "dependencies": {
-    "file-saver": "1.3.3",
-    "xlsx": "0.12.2"  
   },
   "repository": {
     "type": "git",

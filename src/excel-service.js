@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 
@@ -9,7 +10,6 @@ import {
 } from './excel-service.utils';
 
 const createWorksheet = (data, columns, digits) => {
-  /* eslint-disable no-underscore-dangle */
   XLSX.SSF._table[161] = '0.0';
   XLSX.SSF._table[162] = '0.000';
   XLSX.SSF._table[163] = '0.0000';
@@ -61,7 +61,7 @@ const createWorksheet = (data, columns, digits) => {
 
 /**
  * Export data to Excel
- * Arguments:
+ * Input:
  * data is a List of data to export,
  * columns is an array of column objects with the keys:
  * {
@@ -70,6 +70,7 @@ const createWorksheet = (data, columns, digits) => {
  *  headerText :: string, needed if 'header' is not a text,
  *  valueKeyPath :: array of strings,
  *  valueRender :: function, optional,
+ *  valueType :: string, defines a value type in UI
  *  valueTypeExcel :: string, optional, defines a value type for Excel if differs from UI
  *  width :: number, width in pixels,
  * },
@@ -90,7 +91,7 @@ export const exportToExcel = (data, columns, fileName = 'Export From OC', digits
 
 /**
  * Import data from Excel
- * Arguments:
+ * Input:
  * files is an event.target.files array,
  * callback is onLoad callback called from a parent component,
  * alertCallback is a callback for error alert (optional).
@@ -110,15 +111,15 @@ export const importFromExcel = (files, callback, alertCallback = null) => {
 
 /**
  * Callback on load of FileReader for import operation
- * Arguments:
+ * Input:
  * e is an event object,
  * columns is an array of column objects with the keys:
  * {
  *  valueKeyPath :: array of strings,
- *  valueExcelMatch :: function, optional,
+ *  valueExcelMatch :: function (optional),
  *  defaultValue :: any,
  * },
- * visibleColumns is a list of visible columns in case column settings is used (optional).
+ * visibleColumns is a list of visible columns ids in case column settings is used (optional).
  * Output:
  * an array of data.
  */
