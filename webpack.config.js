@@ -127,6 +127,13 @@ const baseConfig = {
       amd: 'react',
       umd: 'react',
     },
+    'prop-types': {
+      root: 'PropTypes',
+      commonjs2: 'prop-types',
+      commonjs: 'prop-types',
+      amd: 'prop-types',
+      umd: 'prop-types',
+    },
     'react-dom': {
       root: 'ReactDOM',
       commonjs2: 'react-dom',
@@ -141,7 +148,7 @@ const baseConfig = {
 * DEVELOPMENT CONFIG
 */
 const devConfig = {
-  devtool: 'eval-source-map',
+  devtool: 'source-map',
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {

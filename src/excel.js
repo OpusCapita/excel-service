@@ -1,10 +1,8 @@
 import XLSX from 'xlsx';
-import { saveAs } from 'file-saver';
 
 import {
   getColumns,
   convertArrayBufferToString,
-  convertStringToArrayBuffer,
   convertValueType,
 } from './excel.utils';
 
@@ -86,12 +84,7 @@ class Excel {
     const sheet = this.createWorksheet(data, exportedColumns, digits);
     const book = { SheetNames: [sheetName], Sheets: {} };
     book.Sheets[sheetName] = sheet;
-    const bookOut = XLSX.write(book, { bookType: 'xlsx', bookSST: true, type: 'binary' });
-    console.log(book, bookOut, new Blob([convertStringToArrayBuffer(bookOut)], { type: 'application/octet-stream' }));
-    saveAs(
-      new Blob([convertStringToArrayBuffer(bookOut)], { type: 'application/octet-stream' }),
-      `${fileName}.xlsx`,
-    );
+    XLSX.writeFile(book, `${fileName}.xlsx`, { bookType: 'xlsx', bookSST: true, type: 'binary' });
   };
 
   /**

@@ -26,16 +26,6 @@ export const convertArrayBufferToString = (data) => {
   return str;
 };
 
-export const convertStringToArrayBuffer = (str) => {
-  /* eslint-disable no-bitwise */
-  const buf = new ArrayBuffer(str.length);
-  const view = new Uint8Array(buf);
-  [...str].forEach((ch, i) => {
-    view[i] = str.charCodeAt(i) & 0xFF;
-  });
-  return buf;
-};
-
 export const convertValueType = (value, type) => {
   const VALUE_TYPES = {
     number: 'number',

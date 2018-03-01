@@ -46,7 +46,7 @@ export default class ExampleView extends React.PureComponent {
   }
 
   handleExportToExcelClick = () => {
-    Excel.exportToExcel(fromJS(this.state.data), this.columns, 'ExampleExport', 2);
+    Excel.exportToExcel(fromJS(this.state.data), this.columns, 'ExampleExport');
   }
 
   handleImportFromExcelClick = (e) => {
