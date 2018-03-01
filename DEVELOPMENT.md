@@ -6,11 +6,11 @@
 ### Development workflow with project using the package
 ##### Link local package to your project
 * Run `npm link` at Component root to make your local package linkable
-* Run `npm link @opuscapita/package-name` at project's dir that's using the component to use local package
+* Run `npm link @opuscapita/excel-service` at project's dir that's using the component to use local package
 ##### Build and watch the package
-* Run `npm run dev` to run dev builds in watch mode
+* Run `npm run watch[:cjs, :es, :umd]` to run dev builds in watch mode
 ##### Unlink local package
-* Run `npm unlink @opuscapita/package-name` at project's dir that's using the component
+* Run `npm unlink @opuscapita/excel-service` at project's dir that's using the component
 
 ### Preparing the PR
 * Reset `docs` and `lib` directories to master branch state `git checkout master -- docs/* lib/*`

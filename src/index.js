@@ -1,2 +1,2 @@
-export { exportToExcel, importFromExcel, onLoadCallback } from './excel-service';
+export Excel from './excel';
 export FileInputLabel from './file-input-label.component';

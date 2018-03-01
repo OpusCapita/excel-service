@@ -2,7 +2,7 @@ import React from 'react';
 import { fromJS } from 'immutable';
 import { Button, ControlLabel, Grid, Row, Col } from 'react-bootstrap';
 
-import { FileInputLabel, exportToExcel, importFromExcel, onLoadCallback } from '../../src/index';
+import { Excel, FileInputLabel } from '../../src/index';
 
 export default class ExampleView extends React.PureComponent {
   constructor(props) {
@@ -41,16 +41,16 @@ export default class ExampleView extends React.PureComponent {
   }
 
   readExcelData = (e) => {
-    const data = onLoadCallback(e, this.columns);
+    const data = Excel.onLoadCallback(e, this.columns);
     this.setState({ data });
   }
 
   handleExportToExcelClick = () => {
-    exportToExcel(fromJS(this.state.data), this.columns, 'ExampleExport');
+    Excel.exportToExcel(fromJS(this.state.data), this.columns, 'ExampleExport', 2);
   }
 
   handleImportFromExcelClick = (e) => {
-    importFromExcel(e.target.files, this.readExcelData);
+    Excel.importFromExcel(e.target.files, this.readExcelData);
   }
 
   render() {
