@@ -11,26 +11,23 @@ export default class ExampleView extends React.PureComponent {
     this.state = { data: this.initializeData() };
   }
 
-  initializeColumns = () => {
-    const columns = [
-      {
-        header: 'String',
-        valueKeyPath: ['string'],
-        width: 200,
-      },
-      {
-        header: 'Number',
-        valueKeyPath: ['number'],
-        width: 200,
-      },
-      {
-        header: 'Float',
-        valueKeyPath: ['float'],
-        width: 200,
-      },
-    ];
-    return columns;
-  }
+  initializeColumns = () => ([
+    {
+      header: 'String',
+      valueKeyPath: ['string'],
+      width: 200,
+    },
+    {
+      header: 'Number',
+      valueKeyPath: ['number'],
+      width: 200,
+    },
+    {
+      header: 'Float',
+      valueKeyPath: ['float'],
+      width: 200,
+    },
+  ])
 
   initializeData = () => {
     const data = [];
