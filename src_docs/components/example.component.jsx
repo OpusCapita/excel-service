@@ -81,9 +81,7 @@ export default class ExampleView extends React.PureComponent {
               id="exportButton"
               onClick={this.handleExportToExcelClick}
             >
-              <ControlLabel>
-                Export to Excel
-              </ControlLabel>
+              Export to Excel
             </Button>
           </Col>
         </Row>
