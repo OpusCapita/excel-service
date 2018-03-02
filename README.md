@@ -90,7 +90,7 @@ export default class ExampleView extends React.PureComponent {
 
   render() {
     return (
-      <div>
+      <Grid fluid>
         <Row>
           {this.columns.map(column => (
             <Col xs={4} key={column.header}>
