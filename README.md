@@ -1,7 +1,7 @@
 # excel-service
 
 ### Description
-Excel service contains a react component for button to open import file window and JS service with methods to export data to Excel and import data from Excel
+Excel service contains a react component for button to open import file window and JS methods to export data to Excel and import data from Excel
 
 ### Installation
 ```
@@ -24,15 +24,15 @@ Also you need to configure sass loader, since all the styles are in sass format.
 | Prop name                | Type             | Default                                  | Description                              |
 | ------------------------ | ---------------- | ---------------------------------------- | ---------------------------------------- |
 | acceptedFiles            | string           | ''                                       | String with file formats                 |
-| label                    | [element, string] | 'Select file'                            | Label for the button                     |
-| onChange                 | function         | () => {}                                 | Callback on file import                 |
+| label                    | [element, string] | 'Select file'                           | Label for the button                     |
+| onChange                 | function         | () => {}                                 | Callback on file import                  |
 
-### API FileInputlabel
+### API FileInputLabel
 | Method                   | Input                                                       | Description                              |
 | ------------------------ | ----------------------------------------------------------- | ---------------------------------------- |
-| exportToExcel            | data :: List, columns :: array, fileName :: string (optional), digits :: [number, array] (optional), visibleColumns :: List | Exports data with specified columns to an Excel file. |
-| importFromExcel          | files :: array, callback :: function, alertCallback :: function (optional) | Imports data from an Excel file. Use alert callabck for a failed import operation. |
-| onLoadCallback           | event :: event object, columns :: array, visibleColumns :: List (optional) | Callback on data import |
+| exportToExcel            | data :: List, columns :: array of objects, fileName :: string (optional), digits :: [number, array] (optional), visibleColumns :: List | Exports data with specified columns to an Excel file. |
+| importFromExcel          | files :: array, callback :: function                        | Imports data from an Excel file. Use alert callabck for a failed import operation. |
+| onLoadCallback           | e :: event object, columns :: array of objects, visibleColumns :: List (optional) | Callback on data import |
 
 ### Code example
 ```jsx

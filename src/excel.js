@@ -1,10 +1,6 @@
 import XLSX from 'xlsx';
 
-import {
-  getColumns,
-  convertArrayBufferToString,
-  convertValueType,
-} from './excel.utils';
+import { getColumns, convertArrayBufferToString, convertValueType } from './excel.utils';
 
 class Excel {
   createWorksheet = (data, columns, digits) => {
@@ -61,8 +57,8 @@ class Excel {
   /**
     * Export data to Excel
     * Input:
-    * data is a List of data to export,
-    * columns is an array of column objects with the keys:
+    * data :: list, defines data to export,
+    * columns :: array, defines an array of column objects with the keys:
     * {
     *  header :: string or element, defines the column name,
     *  valueKeyPath :: array of strings, defines the column id,
@@ -73,10 +69,10 @@ class Excel {
     *  valueRender :: function (optional), defines a render function,
     *  valueTypeExcel :: string (optional), defines a value type for Excel if differs from UI
     * },
-    * fileName is a file name string (optional),
-    * digits is a number of digits for decimals in all table or an array containing digits
-    *   for cells (optional),
-    * visibleColumns is a list of visible columns in case column settings is used (optional).
+    * fileName :: string (optional), defines a file name,
+    * digits :: [number, array] (optional), defines a number of digits for decimals in all table
+    *   or an array containing digits for cells,
+    * visibleColumns :: list (optional), defines visible columns in case column settings are used.
     */
   exportToExcel = (data, columns, fileName = 'Export From OC', digits = null, visibleColumns = null) => {
     const sheetName = 'Sheet1';
@@ -90,16 +86,14 @@ class Excel {
   /**
    * Import data from Excel
    * Input:
-   * files is an event.target.files array,
-   * callback is onLoad callback called from a parent component,
-   * alertCallback is a callback for error alert (optional).
+   * files :: event.target.files array,
+   * callback :: function, onLoad callback.
    */
-  importFromExcel = (files, callback, alertCallback = null) => {
+  importFromExcel = (files, callback) => {
     if (files.length === 0) {
       return;
     }
-    if (alertCallback && files[0].type !== 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
-      alertCallback();
+    if (files[0].type !== 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
       return;
     }
     const reader = new FileReader();
@@ -110,16 +104,16 @@ class Excel {
   /**
    * Callback on load of FileReader for import operation
    * Input:
-   * e is an event object,
-   * columns is an array of column objects with the keys:
+   * e :: event object,
+   * columns :: array, defines column objects with the keys:
    * {
-   *  valueKeyPath :: array of strings,
-   *  valueExcelMatch :: function (optional),
-   *  defaultValue :: any,
+   *  valueKeyPath :: array of strings, defines the column id,
+   *  valueExcelMatch :: function (optional), callback to update the value in imported data,
+   *  defaultValue :: any (optional), defines a default value
    * },
-   * visibleColumns is a list of visible columns in case column settings is used (optional).
+   * visibleColumns :: list (optional), defines visible columns in case column settings is used.
    * Output:
-   * an array of data.
+   * array of imported data.
    */
   onLoadCallback = (e, columns, visibleColumns = null) => {
     const result = convertArrayBufferToString(e.target.result);
