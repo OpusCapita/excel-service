@@ -40,7 +40,7 @@ import React from 'react';
 import { fromJS } from 'immutable';
 import { Button, ControlLabel, Grid, Row, Col } from 'react-bootstrap';
 
-import { Excel, FileInputLabel } from '../../src/index';
+import { Excel, FileInputLabel } from '@opuscapita/excel-service';
 
 export default class ExampleView extends React.PureComponent {
   constructor(props) {
@@ -115,19 +115,14 @@ export default class ExampleView extends React.PureComponent {
         ))}
         <Row>
           <Col xs={12}>
-            <Button
-              id="exportButton"
-              onClick={this.handleExportToExcelClick}
-            >
+            <Button onClick={this.handleExportToExcelClick}>
               Export to Excel
             </Button>
           </Col>
         </Row>
         <Row>
           <Col xs={12}>
-            <Button
-              id="importButton"
-            >
+            <Button>
               <FileInputLabel
                 acceptedFiles=".xlsx"
                 label="Import from Excel"
