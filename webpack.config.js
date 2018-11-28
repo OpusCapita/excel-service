@@ -139,18 +139,10 @@ const baseConfig = {
         }],
       },
     ],
-    // noParse: [
-    //   /xlsx.core.min.js/,
-    //   /xlsx.full.min.js/,
-    // ],
   },
   node: {
     fs: 'empty',
   },
-  // externals: [
-  //   { './cptable': 'var cptable' },
-  //   { './jszip': 'jszip' },
-  // ],
   resolve: {
     modules: [
       path.resolve('./src'),
@@ -158,9 +150,6 @@ const baseConfig = {
     ],
     extensions: ['.js', '.jsx'],
     mainFields: ['es', 'cjs', 'browser', 'module', 'es:next', 'main'],
-    // alias: {
-    //   './dist/cpexcel.js': '',
-    // },
   },
   // Add your peer dependencies here to avoid bundling them to build
   externals: [
