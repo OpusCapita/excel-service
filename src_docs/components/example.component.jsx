@@ -1,6 +1,12 @@
 import React from 'react';
 import { fromJS } from 'immutable';
-import { Button, ControlLabel, Grid, Row, Col } from 'react-bootstrap';
+import {
+  Button,
+  ControlLabel,
+  Grid,
+  Row,
+  Col,
+} from 'react-bootstrap';
 
 import { Excel, FileInputLabel } from '../../src/index';
 
@@ -43,7 +49,8 @@ export default class ExampleView extends React.PureComponent {
   }
 
   handleExportToExcelClick = () => {
-    Excel.exportToExcel(fromJS(this.state.data), this.columns, 'ExampleExport');
+    const { data } = this.state;
+    Excel.exportToExcel(fromJS(data), this.columns, 'ExampleExport');
   }
 
   handleImportFromExcelClick = (e) => {
@@ -51,6 +58,7 @@ export default class ExampleView extends React.PureComponent {
   }
 
   render() {
+    const { data } = this.state;
     return (
       <Grid fluid>
         <Row>
@@ -62,7 +70,7 @@ export default class ExampleView extends React.PureComponent {
             </Col>
           ))}
         </Row>
-        {this.state.data.map(row => (
+        {data.map(row => (
           <Row key={row.number}>
             <Col xs={4}>
               {row.string}

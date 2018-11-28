@@ -46,12 +46,16 @@ const baseConfig = {
         test: /\.css$/,
         use: [
           'style-loader',
-          'css-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              minimize: !!isProd,
+            },
+          },
           {
             loader: 'postcss-loader',
             options: {
               plugins: () => [flexbugs, precss, autoprefixer],
-              minimize: !!isProd,
             },
           },
         ],
@@ -60,12 +64,16 @@ const baseConfig = {
         test: /\.scss$/,
         use: [
           'style-loader',
-          'css-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              minimize: !!isProd,
+            },
+          },
           {
             loader: 'postcss-loader',
             options: {
               plugins: () => [flexbugs, precss, autoprefixer],
-              minimize: !!isProd,
             },
           },
           'sass-loader',
@@ -79,37 +87,70 @@ const baseConfig = {
       {
         test: /\.svg$/,
         include: path.resolve(__dirname, 'node_modules', 'font-awesome'),
-        use: ['file-loader?name=fonts/[name].[ext]'],
+        use: [{
+          loader: 'file-loader',
+          options: {
+            name: '[name].[ext]',
+            outputPath: 'fonts/',
+          },
+        }],
       },
       {
         test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/,
-        use: [
-          'url-loader?limit=100&mimetype=application/font-woff&name=fonts/[name].[ext]',
-        ],
+        use: [{
+          loader: 'url-loader',
+          options: {
+            name: '[name].[ext]',
+            outputPath: 'fonts/',
+            limit: 100,
+            mimetype: 'application/font-woff',
+          },
+        }],
       },
       {
         test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
-        use: [
-          'url-loader?limit=100&mimetype=application/octet-stream&name=fonts/[name].[ext]',
-        ],
+        use: [{
+          loader: 'url-loader',
+          options: {
+            name: '[name].[ext]',
+            outputPath: 'fonts/',
+            limit: 100,
+            mimetype: 'application/octet-stream',
+          },
+        }],
       },
       {
         test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
-        use: [
-          'file-loader?name=fonts/[name].[ext]',
-        ],
+        use: [{
+          loader: 'file-loader',
+          options: {
+            name: '[name].[ext]',
+            outputPath: 'fonts/',
+          },
+        }],
       },
       {
         test: /\.ico$/,
-        use: [
-          'file-loader?name=[name].[ext]',
-        ],
+        use: [{
+          loader: 'file-loader',
+          options: {
+            name: '[name].[ext]',
+          },
+        }],
       },
     ],
+    // noParse: [
+    //   /xlsx.core.min.js/,
+    //   /xlsx.full.min.js/,
+    // ],
   },
   node: {
     fs: 'empty',
   },
+  // externals: [
+  //   { './cptable': 'var cptable' },
+  //   { './jszip': 'jszip' },
+  // ],
   resolve: {
     modules: [
       path.resolve('./src'),
@@ -117,38 +158,38 @@ const baseConfig = {
     ],
     extensions: ['.js', '.jsx'],
     mainFields: ['es', 'cjs', 'browser', 'module', 'es:next', 'main'],
+    // alias: {
+    //   './dist/cpexcel.js': '',
+    // },
   },
   // Add your peer dependencies here to avoid bundling them to build
-  externals: {
-    react: {
-      root: 'React',
-      commonjs2: 'react',
-      commonjs: 'react',
-      amd: 'react',
-      umd: 'react',
+  externals: [
+    { './cptable': 'var cptable' },
+    { './jszip': 'jszip' },
+    {
+      react: {
+        root: 'React',
+        commonjs2: 'react',
+        commonjs: 'react',
+        amd: 'react',
+        umd: 'react',
+      },
+      'react-dom': {
+        root: 'ReactDOM',
+        commonjs2: 'react-dom',
+        commonjs: 'react-dom',
+        amd: 'react-dom',
+        umd: 'react-dom',
+      },
     },
-    'prop-types': {
-      root: 'PropTypes',
-      commonjs2: 'prop-types',
-      commonjs: 'prop-types',
-      amd: 'prop-types',
-      umd: 'prop-types',
-    },
-    'react-dom': {
-      root: 'ReactDOM',
-      commonjs2: 'react-dom',
-      commonjs: 'react-dom',
-      amd: 'react-dom',
-      umd: 'react-dom',
-    },
-  },
+  ],
 };
 
 /*
 * DEVELOPMENT CONFIG
 */
 const devConfig = {
-  devtool: 'source-map',
+  devtool: 'eval-source-map',
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {

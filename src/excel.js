@@ -1,6 +1,7 @@
 import XLSX from 'xlsx';
 
 import { getColumns, convertArrayBufferToString, convertValueType } from './excel.utils';
+import exportSheets from './styled-excel-export';
 
 class Excel {
   createWorksheet = (data, columns, digits) => {
@@ -83,6 +84,10 @@ class Excel {
     XLSX.writeFile(book, `${fileName}.xlsx`, { bookType: 'xlsx', bookSST: true, type: 'binary' });
   };
 
+  exportSheetsToExcel = (sheets, fileName) => {
+    exportSheets(sheets, fileName);
+  }
+
   /**
    * Import data from Excel
    * Input:
@@ -118,8 +123,8 @@ class Excel {
   onLoadCallback = (e, columns, visibleColumns = null) => {
     const result = convertArrayBufferToString(e.target.result);
     const book = XLSX.read(btoa(result), { type: 'base64' });
-    const rawData =
-      XLSX.utils.sheet_to_json(book.Sheets[book.SheetNames[0]], { header: 1, raw: true });
+    const rawData = XLSX.utils
+      .sheet_to_json(book.Sheets[book.SheetNames[0]], { header: 1, raw: true });
     if (Array.isArray(rawData) && rawData.length < 2) {
       return [];
     }
@@ -131,8 +136,8 @@ class Excel {
         const item = {};
         row.forEach((cell, cellIndex) => {
           if (cellIndex < importedColumns.length) {
-            const value = importedColumns[cellIndex].valueExcelMatch !== undefined ?
-              importedColumns[cellIndex].valueExcelMatch(cell) : cell;
+            const value = importedColumns[cellIndex].valueExcelMatch !== undefined
+              ? importedColumns[cellIndex].valueExcelMatch(cell) : cell;
             item[importedColumns[cellIndex].valueKeyPath[0]] = value;
           }
         });

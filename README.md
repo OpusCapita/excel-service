@@ -20,19 +20,45 @@ Also you need to configure sass loader, since all the styles are in sass format.
 * With webpack use [resolve.mainFields](https://webpack.js.org/configuration/resolve/#resolve-mainfields) to configure the module type.
 * Add [SASS loader](https://github.com/webpack-contrib/sass-loader) to support importing of SASS styles.
 
-### API Excel
-| Prop name                | Type             | Default                                  | Description                              |
-| ------------------------ | ---------------- | ---------------------------------------- | ---------------------------------------- |
-| acceptedFiles            | string           | ''                                       | String with file formats                 |
-| label                    | [element, string] | 'Select file'                           | Label for the button                     |
-| onChange                 | function         | () => {}                                 | Callback on file import                  |
-
 ### API FileInputLabel
-| Method                   | Input                                                       | Description                              |
-| ------------------------ | ----------------------------------------------------------- | ---------------------------------------- |
-| exportToExcel            | data :: List, columns :: array of objects, fileName :: string (optional), digits :: [number, array] (optional), visibleColumns :: List | Exports data with specified columns to an Excel file. |
-| importFromExcel          | files :: array, callback :: function                        | Imports data from an Excel file. Use alert callabck for a failed import operation. |
-| onLoadCallback           | e :: event object, columns :: array of objects, visibleColumns :: List (optional) | Callback on data import |
+| Prop name     | Type              | Default       | Description              |
+| ------------- | ----------------- | ------------- | ------------------------ |
+| acceptedFiles | string            | ''            | String with file formats |
+| label         | [element, string] | 'Select file' | Label for the button     |
+| onChange      | function          | () => {}      | Callback on file import  |
+
+### API Excel
+| Method              | Input                                                                                                                                  | Description                                                                        |
+| ------------------- | -------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| exportToExcel       | data :: List, columns :: array of objects, fileName :: string (optional), digits :: [number, array] (optional), visibleColumns :: List | Exports data with specified columns to an Excel file.                              |
+| importFromExcel     | files :: array, callback :: function                                                                                                   | Imports data from an Excel file. Use alert callabck for a failed import operation. |
+| onLoadCallback      | e :: event object, columns :: array of objects, visibleColumns :: List (optional)                                                      | Callback on data import                                                            |
+| exportSheetsToExcel | sheets :: array of Sheet, fileName :: string                                                                                           | Exports data with specified columns to an Excel file.                              |
+
+
+#### Sheet
+| Prop name | Type                       | Default                                    | Description                                                                                                                                                                                            |
+| --------- | -------------------------- | ------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| columns   | array of Columns or arrays | []                                         | Column headers. In case of one column hedaer row, array contains Column objects, and in case of several column header rows, array contains arrays of Column objects.                                   |
+| data      | array of arrays or objects | []                                         | Either array of arrays, which contains objects, with value prop (to be used when no column headers). Or array of (row) objects, which contains props, which match to column valueKeyPath props values. |
+| dataStyle | object                     |                                            | Style for data, for more information refer to [xlsx-styles cell style syntax] (https://www.npmjs.com/package/xlsx-styles#cell-styles)                                                                  |
+| formatter | function                   |                                            | Formatting function for data values                                                                                                                                                                    |
+| name      | string                     | 'Sheet x', where x is sheet's order number | Sheet's name                                                                                                                                                                                           |
+| noBorders | boolean                    | false                                      | True, if cell borders                                                                                                                                                                                  |
+| rows      | array of Rows              | []                                         | Row header.                                                                                                                                                                                            |
+
+#### Column
+| Prop name    | Type   | Default | Description                 |
+| ------------ | ------ | ------- | --------------------------- |
+| header       | string |         | Column header label         |
+| merge        | number |         | Count of cells to be merged |
+| valueKeyPath | array  |         | path to column value        |
+
+#### Row
+| Prop name | Type   | Default | Description      |
+| --------- | ------ | ------- | ---------------- |
+| header    | string |         | Row header label |
+
 
 ### Code example
 ```jsx
