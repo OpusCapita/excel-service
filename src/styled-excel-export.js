@@ -157,20 +157,22 @@ const createDataSheet = (exportData) => {
   };
 
   const detailedColumns = columnTitles.length > 0 ? columnTitles[rowOffset - 1] : [];
+  let endColumnIndex = 0;
   if (detailedColumns.length > 0) {
     data.forEach((row, rowIndex) => {
       detailedColumns.forEach((column, colIndex) => {
         createCell(row[column.valueKeyPath], colIndex, rowIndex);
       });
     });
+    endColumnIndex = detailedColumns.length + colOffset;
   } else {
     data.forEach((row, rowIndex) => {
       row.forEach((column, colIndex) => {
         createCell(column.value, colIndex, rowIndex);
+        endColumnIndex = endColumnIndex < colIndex ? colIndex : endColumnIndex;
       });
     });
   }
-  const endColumnIndex = detailedColumns.length + colOffset;
   const endRowIndex = data.length + rowOffset;
   const range = {
     s: {
@@ -192,10 +194,11 @@ const createDataSheet = (exportData) => {
 export default (sheets, fileName) => {
   const workbook = { SheetNames: [], Sheets: {} };
 
-  sheets.forEach((sheet) => {
-    workbook.SheetNames.push(sheet.name);
+  sheets.forEach((sheet, index) => {
+    const sheetName = sheet.name || `Sheet ${index + 1}`;
+    workbook.SheetNames.push(sheetName);
     const wsSheet = createDataSheet(sheet);
-    workbook.Sheets[sheet.name] = wsSheet;
+    workbook.Sheets[sheetName] = wsSheet;
   });
 
   const wbout = XLSX.write(workbook, writeOptions);

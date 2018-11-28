@@ -53,6 +53,19 @@ export default class ExampleView extends React.PureComponent {
     Excel.exportToExcel(fromJS(data), this.columns, 'ExampleExport');
   }
 
+  handleStyledExportToExcelClick = () => {
+    const { data } = this.state;
+    const { columns } = this;
+    const sheets = [
+      {
+        columns,
+        data,
+        headerStyle: { font: { bold: true } },
+      },
+    ];
+    Excel.exportSheetsToExcel(sheets, 'ExampleStyledExport');
+  }
+
   handleImportFromExcelClick = (e) => {
     Excel.importFromExcel(e.target.files, this.readExcelData);
   }
@@ -90,6 +103,16 @@ export default class ExampleView extends React.PureComponent {
               onClick={this.handleExportToExcelClick}
             >
               Export to Excel
+            </Button>
+          </Col>
+        </Row>
+        <Row>
+          <Col xs={12}>
+            <Button
+              id="exportSheetsButton"
+              onClick={this.handleStyledExportToExcelClick}
+            >
+              Styled export to Excel
             </Button>
           </Col>
         </Row>
