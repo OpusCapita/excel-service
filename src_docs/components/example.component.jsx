@@ -1,6 +1,12 @@
 import React from 'react';
 import { fromJS } from 'immutable';
-import { Button, ControlLabel, Grid, Row, Col } from 'react-bootstrap';
+import {
+  Button,
+  ControlLabel,
+  Grid,
+  Row,
+  Col,
+} from 'react-bootstrap';
 
 import { Excel, FileInputLabel } from '../../src/index';
 
@@ -43,7 +49,21 @@ export default class ExampleView extends React.PureComponent {
   }
 
   handleExportToExcelClick = () => {
-    Excel.exportToExcel(fromJS(this.state.data), this.columns, 'ExampleExport');
+    const { data } = this.state;
+    Excel.exportToExcel(fromJS(data), this.columns, 'ExampleExport');
+  }
+
+  handleStyledExportToExcelClick = () => {
+    const { data } = this.state;
+    const { columns } = this;
+    const sheets = [
+      {
+        columns,
+        data,
+        headerStyle: { font: { bold: true } },
+      },
+    ];
+    Excel.exportSheetsToExcel(sheets, 'ExampleStyledExport');
   }
 
   handleImportFromExcelClick = (e) => {
@@ -51,6 +71,7 @@ export default class ExampleView extends React.PureComponent {
   }
 
   render() {
+    const { data } = this.state;
     return (
       <Grid fluid>
         <Row>
@@ -62,7 +83,7 @@ export default class ExampleView extends React.PureComponent {
             </Col>
           ))}
         </Row>
-        {this.state.data.map(row => (
+        {data.map(row => (
           <Row key={row.number}>
             <Col xs={4}>
               {row.string}
@@ -82,6 +103,16 @@ export default class ExampleView extends React.PureComponent {
               onClick={this.handleExportToExcelClick}
             >
               Export to Excel
+            </Button>
+          </Col>
+        </Row>
+        <Row>
+          <Col xs={12}>
+            <Button
+              id="exportSheetsButton"
+              onClick={this.handleStyledExportToExcelClick}
+            >
+              Styled export to Excel
             </Button>
           </Col>
         </Row>
