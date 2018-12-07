@@ -169,7 +169,9 @@ const createDataSheet = (exportData) => {
     data.forEach((row, rowIndex) => {
       row.forEach((column, colIndex) => {
         createCell(column.value, colIndex, rowIndex);
-        endColumnIndex = endColumnIndex < colIndex ? colIndex : endColumnIndex;
+        const currentColIndex = colIndex + colOffset;
+        endColumnIndex = endColumnIndex < currentColIndex ? currentColIndex : endColumnIndex;
+        cols.push({ wch: 50 });
       });
     });
   }

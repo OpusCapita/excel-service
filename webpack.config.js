@@ -155,6 +155,7 @@ const baseConfig = {
   externals: [
     { './cptable': 'var cptable' },
     { './jszip': 'jszip' },
+    { '../xlsx': './xlsx' },
     {
       react: {
         root: 'React',
