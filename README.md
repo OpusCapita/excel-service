@@ -4,9 +4,34 @@
 Excel service contains a react component for button to open import file window and JS methods to export data to Excel and import data from Excel
 
 ### Installation
+It seems, that npm handles xlsx and xlsx-styles as different versions of the same component. But xlsx-style requires xlsx to be installed in the same node module tree folder with it. In order to make that happen, please follow the instructions below.
+
+Add
 ```
-npm install @opuscapita/excel-service
+externals: [
+  { './cptable': 'var cptable' },
+]
 ```
+to webpack.config.js and run
+
+```
+npm install file-saver
+```
+
+Add @opuscapita/excel-service to package.json dependencies and run ````npm install```. Note, do not run npm install for @opuscapita/excel-service, otherwise xlsx-styles is not installed.
+
+If xlsx-styles is installed into ```node_modules/@opuscapita/excel-service/node_modules``` do the following:
+
+1. Run ```npm install xlsx-styles```
+2. Verify that xlsx-styles is installed at the root level of the tree
+3. Run ```npm dedupe```
+4. Verify that xlsx-styles is removed from ```node_modules/@opuscapita/excel-service/node_modules``` and both xlsx and xlsx-styles exist in the root level of the tree.
+5. Run ```npm uninstall xlsx-styles```
+6. Repeat step 4.
+
+If xlsx is installed into ```node_modules/@opuscapita/excel-service/node_modules``` do the above steps for it, but replace xlsx-styles with xlsx.
+
+Once these steps have been executed it is enough to run only ````npm install``` and it does installation correspondingly.
 
 ### Demo
 View the [DEMO](https://opuscapita.github.io/excel-service)
