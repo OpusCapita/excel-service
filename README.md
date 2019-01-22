@@ -15,7 +15,7 @@ externals: [
 to webpack.config.js and run
 
 ```
-npm install file-saver
+npm install --save file-saver
 ```
 
 Add @opuscapita/excel-service to package.json dependencies and run ````npm install```. Note, do not run npm install for @opuscapita/excel-service, otherwise xlsx-styles is not installed.
