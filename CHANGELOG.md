@@ -4,6 +4,9 @@
 
 ## <next>
 
+## 1.0.2
+* Added installation instructions and corrected peer dependencies
+
 ## 1.0.1
 * Fixed column headerless !ref range area
 
