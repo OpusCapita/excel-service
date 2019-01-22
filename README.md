@@ -31,7 +31,7 @@ If xlsx-styles is installed into ```node_modules/@opuscapita/excel-service/node_
 
 If xlsx is installed into ```node_modules/@opuscapita/excel-service/node_modules``` do the above steps for it, but replace xlsx-styles with xlsx.
 
-Once these steps have been executed it is enough to run only ````npm install``` and it does installation correspondingly.
+Once these steps have been executed it is enough to run only ```npm install``` and it does installation correspondingly.
 
 ### Demo
 View the [DEMO](https://opuscapita.github.io/excel-service)
