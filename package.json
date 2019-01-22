@@ -39,7 +39,8 @@
   "peerDependencies": {
     "prop-types": "15",
     "react": "15 || 16",
-    "react-dom": "15 || 16"
+    "react-dom": "15 || 16",
+    "file-saver": "2.0.0"
   },
   "devDependencies": {
     "autoprefixer": "9.3.1",
