@@ -12,26 +12,11 @@ externals: [
   { './cptable': 'var cptable' },
 ]
 ```
-to webpack.config.js and run
+to webpack.config.js and install
 
 ```
-npm install --save file-saver
+npm install --save file-saver xlsx xlsx-styles @opuscapita/excel-service
 ```
-
-Add @opuscapita/excel-service to package.json dependencies and run ````npm install```. Note, do not run npm install for @opuscapita/excel-service, otherwise xlsx-styles is not installed.
-
-If xlsx-styles is installed into ```node_modules/@opuscapita/excel-service/node_modules``` do the following:
-
-1. Run ```npm install xlsx-styles```
-2. Verify that xlsx-styles is installed at the root level of the tree
-3. Run ```npm dedupe```
-4. Verify that xlsx-styles is removed from ```node_modules/@opuscapita/excel-service/node_modules``` and both xlsx and xlsx-styles exist in the root level of the tree.
-5. Run ```npm uninstall xlsx-styles```
-6. Repeat step 4.
-
-If xlsx is installed into ```node_modules/@opuscapita/excel-service/node_modules``` do the above steps for it, but replace xlsx-styles with xlsx.
-
-Once these steps have been executed it is enough to run only ```npm install``` and it does installation correspondingly.
 
 ### Demo
 View the [DEMO](https://opuscapita.github.io/excel-service)

@@ -40,7 +40,9 @@
     "prop-types": "15",
     "react": "15 || 16",
     "react-dom": "15 || 16",
-    "file-saver": "2.0.0"
+    "file-saver": "2.0.0",
+    "xlsx": "0.14.1",
+    "xlsx-styles": "0.8.21"
   },
   "devDependencies": {
     "autoprefixer": "9.3.1",
