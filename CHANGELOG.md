@@ -3,6 +3,7 @@
 * In general follow (https://docs.npmjs.com/getting-started/semantic-versioning) versioning.
 
 ## <next>
+* Fixed installation instructions
 
 ## 1.0.2
 * Added installation instructions and corrected peer dependencies
