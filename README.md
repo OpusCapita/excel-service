@@ -18,6 +18,15 @@ to webpack.config.js and install
 npm install --save file-saver xlsx xlsx-styles @opuscapita/excel-service
 ```
 
+It seems, that npm handles xlsx and xlsx-styles as different versions of the same component. But xlsx-style requires xlsx to be installed in the same node module tree folder with it. In order to make that happen, please follow the instructions below.
+
+If xlsx-styles is installed into ```node_modules/@opuscapita/excel-service/node_modules``` do the following:
+1. Delete ```package-lock.json```
+2. Delete ```node_modules```
+3. Run ```npm install```
+4. Verify that xlsx-styles doesn't exist in ```node_modules/@opuscapita/excel-service/node_modules``` and both xlsx and xlsx-styles exist in the root level of the tree.
+If xlsx is installed into ```node_modules/@opuscapita/excel-service/node_modules``` do the above steps for it, but replace xlsx-styles with xlsx.
+
 ### Demo
 View the [DEMO](https://opuscapita.github.io/excel-service)
 
