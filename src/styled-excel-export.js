@@ -61,6 +61,8 @@ const createColumnTitles = (
     const upperCell = rowIndex > 0 ? cells[rowIndex - 1][colIndex] : undefined;
     if (column && column.valueKeyPath) {
       cellData.valueKeyPath = column.valueKeyPath;
+      cellData.valueRender = column.valueRender;
+      cellData.disableValueRenderInExcel = column.disableValueRenderInExcel;
     } else if (rowIndex > 0) {
       cellData.valueKeyPath = upperCell.valueKeyPath;
     }
@@ -79,7 +81,7 @@ const createColumnTitles = (
 const createDataSheet = (exportData) => {
   const {
     columns,
-    data,
+    data = [],
     dataStyle,
     formatter,
     headerStyle,
@@ -130,16 +132,12 @@ const createDataSheet = (exportData) => {
   const createCell = (value, colIndex, rowIndex) => {
     const cellRowIndex = rowIndex + rowOffset;
     const cellColIndex = colIndex + colOffset;
-    let cellValue = value;
-    if (formatter) {
-      cellValue = formatter(value);
-    }
-    const cell = { v: cellValue, s: dataStyle };
+    const cell = { v: value, s: dataStyle };
     if (!noBorders) {
       cell.s = { ...cell.s, ...border };
     }
     const cellRef = XLSX.utils.encode_cell({ c: cellColIndex, r: cellRowIndex });
-    switch (typeof cellValue) {
+    switch (typeof value) {
       case ('number'): {
         cell.t = 'n';
         break;
@@ -156,26 +154,38 @@ const createDataSheet = (exportData) => {
     worksheet[cellRef] = cell;
   };
 
+  const formatCell = (value, column, row) => {
+    let cellValue = value;
+    if (column.valueRender && !column.disableValueRenderInExcel) {
+      cellValue = column.valueRender(row);
+    } else if (formatter) {
+      cellValue = formatter(value);
+    }
+    return cellValue;
+  };
+
   const detailedColumns = columnTitles.length > 0 ? columnTitles[rowOffset - 1] : [];
   let endColumnIndex = 0;
   if (detailedColumns.length > 0) {
     data.forEach((row, rowIndex) => {
       detailedColumns.forEach((column, colIndex) => {
-        createCell(row[column.valueKeyPath], colIndex, rowIndex);
+        const cellValue = formatCell(row.getIn ? row.getIn(column.valueKeyPath) : row[column.valueKeyPath], column, row);
+        createCell(cellValue, colIndex, rowIndex);
       });
     });
     endColumnIndex = detailedColumns.length + colOffset;
   } else {
     data.forEach((row, rowIndex) => {
       row.forEach((column, colIndex) => {
-        createCell(column.value, colIndex, rowIndex);
+        const cellValue = formatCell(column.value, column, row);
+        createCell(cellValue, colIndex, rowIndex);
         const currentColIndex = colIndex + colOffset;
         endColumnIndex = endColumnIndex < currentColIndex ? currentColIndex : endColumnIndex;
         cols.push({ wch: 50 });
       });
     });
   }
-  const endRowIndex = data.length + rowOffset;
+  const endRowIndex = (data.length || data.size) + rowOffset;
   const range = {
     s: {
       c: 0,
