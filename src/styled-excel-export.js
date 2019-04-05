@@ -169,7 +169,9 @@ const createDataSheet = (exportData) => {
   if (detailedColumns.length > 0) {
     data.forEach((row, rowIndex) => {
       detailedColumns.forEach((column, colIndex) => {
-        const cellValue = formatCell(row.getIn ? row.getIn(column.valueKeyPath) : row[column.valueKeyPath], column, row);
+        const cellValue = formatCell(row.getIn
+          ? row.getIn(column.valueKeyPath)
+          : row[column.valueKeyPath], column, row);
         createCell(cellValue, colIndex, rowIndex);
       });
     });
