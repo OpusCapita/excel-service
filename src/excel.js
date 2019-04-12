@@ -128,10 +128,12 @@ class Excel {
     if (Array.isArray(rawData) && rawData.length < 2) {
       return [];
     }
-    const importedColumns = getColumns(columns, visibleColumns);
+    let importedColumns;
     const data = [];
     rawData.forEach((row, rowIndex) => {
-      // skip the header
+      if (rowIndex === 0) {
+        importedColumns = typeof columns === 'function' ? getColumns(columns(row), visibleColumns) : getColumns(columns, visibleColumns);
+      }
       if (rowIndex >= 1) {
         const item = {};
         row.forEach((cell, cellIndex) => {
