@@ -67,11 +67,12 @@ Also you need to configure sass loader, since all the styles are in sass format.
 | rows      | array of Rows              | []                                         | Row header.                                                                                                                                                                                            |
 
 #### Column
-| Prop name    | Type   | Default | Description                 |
-| ------------ | ------ | ------- | --------------------------- |
-| header       | string |         | Column header label         |
-| merge        | number |         | Count of cells to be merged |
-| valueKeyPath | array  |         | path to column value        |
+| Prop name    | Type   | Default | Description                                                                                                                |
+| ------------ | ------ | ------- | -------------------------------------------------------------------------------------------------------------------------- |
+| header       | string |         | Column header label                                                                                                        |
+| merge        | number |         | Count of cells to be merged                                                                                                |
+| valueKeyPath | array  |         | path to column value                                                                                                       |
+| valueOptions | object |         | If valueOptions.multiplier is defined for numeric column, then each values in that column are multiplied by the multiplier |
 
 #### Row
 | Prop name | Type   | Default | Description      |
