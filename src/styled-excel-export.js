@@ -63,6 +63,9 @@ const createColumnTitles = (
       cellData.valueKeyPath = column.valueKeyPath;
       cellData.valueRender = column.valueRender;
       cellData.disableValueRenderInExcel = column.disableValueRenderInExcel;
+      if (column.valueOptions && column.valueOptions.multiplier) {
+        cellData.multiplier = column.valueOptions.multiplier;
+      }
     } else if (rowIndex > 0) {
       cellData.valueKeyPath = upperCell.valueKeyPath;
     }
@@ -155,11 +158,12 @@ const createDataSheet = (exportData) => {
   };
 
   const formatCell = (value, column, row) => {
-    let cellValue = value;
-    if (column.valueRender && !column.disableValueRenderInExcel) {
-      cellValue = column.valueRender(row);
+    const { disableValueRenderInExcel, multiplier, valueRender } = column;
+    let cellValue = multiplier && typeof value === 'number' ? multiplier * value : value;
+    if (valueRender && !disableValueRenderInExcel) {
+      cellValue = valueRender(row);
     } else if (formatter) {
-      cellValue = formatter(value);
+      cellValue = formatter(cellValue);
     }
     return cellValue;
   };
