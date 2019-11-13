@@ -151,6 +151,7 @@ const createDataSheet = (exportData) => {
       }
       default: {
         cell.t = 's';
+        cell.z = '@';
         break;
       }
     }
