@@ -1,7 +1,7 @@
 {
   "author": "OpusCapita (www.opuscapita.com)",
   "name": "@opuscapita/excel-service",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "private": false,
   "license": "MIT",
   "description": "OpusCapita JS Excel Service",
