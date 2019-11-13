@@ -46,6 +46,7 @@ class Excel {
           cell.t = 'b';
         } else {
           cell.t = 's';
+          cell.z = '@';
         }
         sheet[cellRef] = cell;
       });

@@ -4,6 +4,9 @@
 
 ## <next>
 
+## 1.0.6
+* Fix string export
+
 ## 1.0.5
 * Styled excel export: added support for numeric column multiplier
 
