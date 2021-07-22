@@ -41,7 +41,7 @@
     "react": "15 || 16",
     "react-dom": "15 || 16",
     "file-saver": "2.0.0",
-    "xlsx": "0.14.1",
+    "xlsx": "0.17.0",
     "xlsx-styles": "0.8.21"
   },
   "devDependencies": {
@@ -107,7 +107,7 @@
     "write-file-webpack-plugin": "4.4.1"
   },
   "dependencies": {
-    "xlsx": "0.14.1",
+    "xlsx": "0.17.0",
     "xlsx-styles": "0.8.21"
   },
   "repository": {
